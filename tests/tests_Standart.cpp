@@ -5,7 +5,7 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "Standard.hpp"
+#include "Standard.h"
 
 TEST(StandardTests, BasicArithmetic) {
     

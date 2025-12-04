@@ -3,6 +3,7 @@
 //#include <vector>
 #include <spdlog/spdlog.h>
 #include "AppCalculator.hpp"
+#include "Menu.h"
 
 // инициализация статического указателя
 AppCalculator *AppCalculator::instance = nullptr;
@@ -33,19 +34,23 @@ AppCalculator *AppCalculator::getInstance()
 // метод run — принимает аргументы командной строки
 void AppCalculator::run(int argc, char *argv[])
 {
-    // Настройка spdlog
-    spdlog::set_level(spdlog::level::trace); // уровень логирования приложения
-    spdlog::info("Запуск калькулятора...");
+    //// Настройка spdlog
+    //spdlog::set_level(spdlog::level::trace); // уровень логирования приложения
+    //spdlog::info("Запуск калькулятора...");
 
-    // обработка аргументов командной строки
-    spdlog::trace("AppCalculator run() called with {} arguments.", argc);
-    
-    spdlog::debug("AppCalculator is running with {} arguments.", argc);
-    for (int i = 0; i < argc; ++i)
-    {
-        spdlog::debug("Argument {}: {}", i, argv[i]);
-    }
+    Menu menu;
+    menu.showMenu();
+    menu.run();
 
-    spdlog::info("Завершение работы калькулятора...");
+    //// обработка аргументов командной строки
+    //spdlog::trace("AppCalculator run() called with {} arguments.", argc);
+    //
+    //spdlog::debug("AppCalculator is running with {} arguments.", argc);
+    //for (int i = 0; i < argc; ++i)
+    //{
+    //    spdlog::debug("Argument {}: {}", i, argv[i]);
+    //}
+
+    //spdlog::info("Завершение работы калькулятора...");
 };
 

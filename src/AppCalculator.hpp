@@ -1,7 +1,7 @@
 //#include <iostream>
 #include <string>
 #include <vector>
-//#include "Menu.h" // предполагаем, что класс Menu вынесен в отдельный файл
+#include "Menu.h" 
 
 class AppCalculator
 {

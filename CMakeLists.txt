@@ -1,28 +1,54 @@
-cmake_minimum_required(VERSION 3.20)
-project(cpp_calculator 
-    VERSION 1.0
-    DESCRIPTION "Extended console calculator"
-    LANGUAGES CXX
+# ============================================
+# Исполняемый файл - логика приложения
+# ============================================
+add_executable(app_calculator
+    main.cpp
+    AppCalculator.cpp #  App здесь, в приложении!
+ "Menu.cpp" "StandartMenu.cpp" "CalendarMenu.h" "CalendarMenu.cpp" "ExtendedCalc.cpp" "ExtendedCalc.h")
+
+# ============================================
+# Библиотека приложения - country population
+# ============================================
+add_library(lib_calculator 
+    Standard.cpp
+ "Menu.cpp" "StandartMenu.cpp" "CalendarMenu.h" "CalendarMenu.cpp" "ExtendedCalc.cpp" "ExtendedCalc.h")
+
+# Объявляем, что заголовочные файлы находятся в ../include.
+# 'PUBLIC' означает, что этот путь будет наследоваться любым другим target,
+# который будет линковаться с lib_calculator. 
+# ИСПОЛЬЗУЙТЕ CMAKE_CURRENT_SOURCE_DIR
+# CMAKE_CURRENT_SOURCE_DIR - это путь к текущему каталогу.
+# CMAKE_CURRENT_SOURCE_DIR/../include - это абсолютный путь.
+# Это устраняет ошибку 'Found relative path'.
+target_include_directories(lib_calculator
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+)
+
+# ПРАВИЛЬНО: PUBLIC для библиотеки
+target_link_libraries(lib_calculator
+    PUBLIC
+        spdlog::spdlog   # Логирование нужно везде
 )
 
 
-# Set C++ standard
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# ============================================
+# Подключение библиотеки к Исполняемому файлу
+# ============================================
 
-# Enable testing for the whole repository
-enable_testing()
+target_link_libraries(app_calculator
+    PRIVATE
+        # Автоматически получит spdlog благодаря PUBLIC линковке в библиотеке
+        lib_calculator  # Получаем Calculator
+)
 
-# Set output directories
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+# Если у App есть свой заголовок (.hpp), добавляем:
+target_include_directories(app_calculator
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}  # Для AppCalculator.hpp
 
-# Include shared dependency module (downloads dependencies once)
-include(${CMAKE_SOURCE_DIR}/cmake/Dependencies.cmake)
-message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+)
 
-add_subdirectory(src)
-add_subdirectory(tests)
 
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+
+

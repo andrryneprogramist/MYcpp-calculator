@@ -1,8 +1,10 @@
 ﻿#include <iostream>
 #include <limits>
 #include <iomanip>
-#include "StandartMenu.cpp"
+#include "StandardMenu.h"
+#include "CalendarMenu.h"
 #include "Menu.h"
+#include "ExtendedCalc.h"
 #include <vector>
 #include <string>
 
@@ -38,7 +40,7 @@
 
             switch (choice) {
             case 1: {
-                std::cout << "\033[2J\033[H";
+                std::cout << std::endl;
                 std::cout << "\n=== Стандартный режим ===" << std::endl;
                 StandartMenu().showSMenu();
                 StandartMenu().SMrun();
@@ -46,7 +48,7 @@
             }
             case 2: {
                 std::cout << "\n=== Инженерный режим ===" << std::endl;
-                //run->EngineerMenu.cpp
+                Extended().ExtMain();
                 break;
             }
             case 3: {
@@ -55,6 +57,9 @@
             }
             case 4: {
                 std::cout << "\n=== Работа с датами ===" << std::endl;
+                CalendarMenu CalendarMenu;
+                CalendarMenu.showCMenu();
+                CalendarMenu.runCM();
 
                 break;
             }
@@ -85,12 +90,6 @@
                 break;
             }
             }
-
-            if (choice != 0) {
-                std::cout << "\nНажмите Enter для продолжения...";
-                std::cin.get();
-            }
-
         } while (choice != 0);
     }
 

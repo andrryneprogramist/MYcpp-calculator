@@ -4,14 +4,14 @@
 add_executable(app_calculator
     main.cpp
     AppCalculator.cpp #  App здесь, в приложении!
- "Menu.cpp" "StandartMenu.cpp" "CalendarWork/CalenderMenu.h")
+ "Menu.cpp" "StandartMenu.cpp" "CalendarMenu.h" "CalendarMenu.cpp" "ExtendedCalc.cpp" "ExtendedCalc.h")
 
 # ============================================
 # Библиотека приложения - country population
 # ============================================
 add_library(lib_calculator 
     Standard.cpp
- "Menu.cpp" "StandartMenu.cpp" "CalendarWork/CalenderMenu.h")
+ "Menu.cpp" "StandartMenu.cpp" "CalendarMenu.h" "CalendarMenu.cpp" "ExtendedCalc.cpp" "ExtendedCalc.h")
 
 # Объявляем, что заголовочные файлы находятся в ../include.
 # 'PUBLIC' означает, что этот путь будет наследоваться любым другим target,
